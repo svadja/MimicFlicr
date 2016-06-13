@@ -2,6 +2,7 @@
 package ua.sasa.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,14 +25,14 @@ public class Image implements Serializable {
     
     private String description;
     
-    private LocalDateTime  dateCreation;
+    private Instant dateCreation;
     
     private String filePath;
 
     public Image() {
     }
 
-    public Image(String name, String description, LocalDateTime dateCreation, String filePath) {
+    public Image(String name, String description, Instant dateCreation, String filePath) {
         this.name = name;
         this.description = description;
         this.dateCreation = dateCreation;
@@ -62,11 +63,11 @@ public class Image implements Serializable {
         this.description = description;
     }
 
-    public LocalDateTime getDateCreation() {
+    public Instant getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDateTime dateCreation) {
+    public void setDateCreation(Instant dateCreation) {
         this.dateCreation = dateCreation;
     }
 

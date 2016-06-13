@@ -3,6 +3,7 @@ package ua.sasa.service;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ImagesDriver {
                 stream.write(bytes);
                 stream.close();
                 image.setFilePath(fileName);
-                image.setDateCreation(LocalDateTime.now());
+                image.setDateCreation(Instant.now());
                 dao.saveOrUpdate(image);
                 return true;
             } catch (Exception e) {
@@ -50,7 +51,7 @@ public class ImagesDriver {
 
     }
 
-    public List<Image> getImage(String name, String description, Long dateStart, Long dateEnd) {
+    public List<Image> getImage(String name, String description, Instant dateStart, Instant dateEnd) {
         return imagesDao.getImages(name, description, dateStart, dateEnd);
     }
 

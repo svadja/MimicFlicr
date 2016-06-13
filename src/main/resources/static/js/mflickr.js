@@ -58,7 +58,7 @@ $(function () {
                 description = "";
             }
             if (images[i].dateCreation !== null) {
-                dateCreation = images[i].dateCreation.dayOfMonth +" "+ images[i].dateCreation.month + " " + images[i].dateCreation.year;
+                dateCreation = new Date(images[i].dateCreation.epochSecond*1000);
             } else {
                 dateCreation = "";
             }

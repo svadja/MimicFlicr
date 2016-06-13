@@ -1,5 +1,7 @@
 package ua.sasa.controller;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,16 @@ public class ImageController {
     }
 
     @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public ResponseEntity getImages(@RequestParam(required = false) String name, @RequestParam(required = false) String description, @RequestParam(required = false) Long dateStart,  @RequestParam(required = false) Long dateEnd) {
-        List<Image> images = imageDriver.getImage(name, description, dateStart, dateEnd);
+    public ResponseEntity getImages(@RequestParam(required = false) String name, @RequestParam(required = false) String description, @RequestParam(required = false) Long dateStart, @RequestParam(required = false) Long dateEnd) {
+        Instant insDateStart=null;
+        Instant insDateEnd=null;
+        if (dateStart != null) {
+            insDateStart = Instant.ofEpochMilli(dateStart);
+        }
+        if (dateEnd != null) {
+            insDateEnd = Instant.ofEpochMilli(dateEnd);
+        }
+        List<Image> images = imageDriver.getImage(name, description, insDateStart, insDateEnd);
         return ResponseEntity.ok(images);
     }
 

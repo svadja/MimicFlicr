@@ -1,6 +1,8 @@
 
 package ua.sasa.dao;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -22,7 +24,7 @@ public class ImagesDao {
     @Autowired
     private SessionFactory sessionFactory;
     
-    public List<Image> getImages(String name, String description, Long  dateStart, Long dateEnd){
+    public List<Image> getImages(String name, String description, Instant  dateStart, Instant dateEnd){
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class.getName());
         if ((name!=null)&&(!name.trim().isEmpty())){
             criteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
@@ -30,7 +32,13 @@ public class ImagesDao {
         if((description!=null)&&(!description.trim().isEmpty())){
             criteria.add(Restrictions.ilike("description", description,MatchMode.ANYWHERE));
         }
-       return criteria.list(); 
+        if (dateStart!=null){
+            criteria.add(Restrictions.ge("dateCreation", dateStart));
+        }
+        if (dateEnd!=null){
+            criteria.add(Restrictions.le("dateCreation", dateEnd));
+        }
+        return criteria.list(); 
     };
 
 }
